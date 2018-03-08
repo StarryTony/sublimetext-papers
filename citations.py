@@ -192,7 +192,7 @@ def format_citekeys(keys):
     return "{%s}" % ", ".join(keys)
 
 def format_markdown(keys):
-    return ", ".join("[%s](papers2://publication/citekey/%s)" % (key, key) for key in keys)
+    return ", ".join("[%s](papers://publication/citekey/%s)" % (key, key) for key in keys)
 
 def parse_line(text):
     results = citations_expr.scanString(text)
