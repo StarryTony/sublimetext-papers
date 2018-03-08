@@ -92,7 +92,7 @@ def list_citations(db):
     cursor = db.cursor()
 
     if !checkTableExists(db,'Publication'):
-        print("Error: cannot find the table in the database")
+        sublime.error_message("Error: cannot find the table in the database")
         return
     
     candidates = db.execute(
