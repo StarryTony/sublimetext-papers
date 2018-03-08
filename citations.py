@@ -74,7 +74,27 @@ def gen_citekey(base, year, doi, title):
 # Papers Database Access
 # =============================================================
 
+def checkTableExists(dbcon, tablename):
+    dbcur = dbcon.cursor()
+    dbcur.execute("""
+        SELECT COUNT(*)
+        FROM sqlite_master
+        WHERE type='table' AND name= '{0}'
+        """.format(tablename.replace('\'', '\'\'')))
+    if dbcur.fetchone()[0] == 1:
+        dbcur.close()
+        return True
+
+    dbcur.close()
+    return False
+
 def list_citations(db):
+    cursor = db.cursor()
+
+    if !checkTableExists(db,'Publication'):
+        print("Error: cannot find the table in the database")
+        return
+    
     candidates = db.execute(
         "SELECT author_year_string, attributed_title, canonical_title, doi, "
         "citekey_base, publication_date FROM Publication")
